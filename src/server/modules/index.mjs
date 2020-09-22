@@ -411,7 +411,7 @@ class CoreModule extends PrismaModule {
 
     // console.log('AllowedMutations', AllowedMutations);
 
-    return {
+    const rs = {
       ...other,
       Query: {
         ...Query,
@@ -451,34 +451,43 @@ class CoreModule extends PrismaModule {
 
       User: {
         ...User,
-        // schoolRoles: async (source, args, ctx, info) => {
+        schoolRoles: async (source, args, ctx, info) => {
 
-        //   const {
-        //     id,
-        //   } = source
+          // console.log('source', source);
+          console.log('source', JSON.stringify(source, true, 2));
 
-        //   const {
-        //     // currentUser,
-        //     db,
-        //   } = ctx
+          console.log('args', JSON.stringify(args, true, 2));
 
-        //   const Groups = await db.query.userGroups({
-        //     where: {
-        //       Users_some: {
-        //         id,
-        //       }
-        //     }
-        //   });
 
-        //   // console.log('Groups', Groups);
+          const {
+            id,
+          } = source
 
-        //   // console.log('Groups.map(n => n.name)', Groups.map(n => n.name));
+          const {
+            // currentUser,
+            db,
+          } = ctx
 
-        //   return Groups.map(n => n.name);
-        // },
+          const Groups = await db.query.userGroups({
+            where: {
+              Users_some: {
+                id,
+              }
+            }
+          });
+
+          // console.log('Groups', Groups);
+
+          // console.log('Groups.map(n => n.name)', Groups.map(n => n.name));
+
+          return Groups.map(n => n.name);
+        },
       },
     };
 
+    console.log('resolvers', rs);
+
+    return rs;
   }
 
 

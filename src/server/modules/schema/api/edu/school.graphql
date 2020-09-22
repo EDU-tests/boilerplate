@@ -1,0 +1,5 @@
+
+type School {
+  test: String
+  test2: String
+}
