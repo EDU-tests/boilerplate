@@ -97,60 +97,66 @@ export default class SchoolModule extends PrismaModule {
         school: (source, args, ctx, info) => {
           return ctx.db.query.school(args, info)
         },
-        schools: (source, args, ctx, info) => {
-          return ctx.db.query.schools(args, info)
-        },
         // schools: async (source, args, ctx, info) => {
 
-        //   const {
-        //     where: baseWhere,
-        //     ...other
-        //   } = args
+        //   // return [];
+        //   const result = (await ctx.db.query.schools(args, info));
 
-        //   const {
-        //     db,
-        //     currentUser,
-        //   } = ctx
+        //   console.log('result', JSON.stringify(result, true, 2));
 
-        //   if (!currentUser) {
-        //     return [];
-        //   }
-
-        //   const {
-        //     id,
-        //   } = currentUser
-
-        //   const Groups = (await db.query.userGroups({
-        //     where: {
-        //       Users_some: {
-        //         id,
-        //       }
-        //     }
-        //   })).map(n => n.name);
-
-        //   console.log('Groups', Groups);
-
-        //   // console.log('Groups.map(n => n.name)', Groups.map(n => n.name));
-
-
-        //   // return Groups.map(n => n.name);
-
-        //   const where = {}
-
-        //   if (Groups.indexOf('Teachers') === -1) {
-        //     where.Users_some = {
-        //       id: currentUser.id,
-        //     }
-        //   }
-
-        //   return ctx.db.query.schools({
-        //     ...other,
-        //     where: {
-        //       ...baseWhere,
-        //       ...where,
-        //     },
-        //   }, info)
+        //   return result;
         // },
+        schools: async (source, args, ctx, info) => {
+
+          const {
+            where: baseWhere,
+            ...other
+          } = args
+
+          const {
+            db,
+            currentUser,
+          } = ctx
+
+          if (!currentUser) {
+            return [];
+          }
+
+          const {
+            id,
+          } = currentUser
+
+          const Groups = (await db.query.userGroups({
+            where: {
+              Users_some: {
+                id,
+              }
+            }
+          })).map(n => n.name);
+
+          console.log('Groups', Groups);
+
+          // console.log('Groups.map(n => n.name)', Groups.map(n => n.name));
+
+
+          // return Groups.map(n => n.name);
+
+          const where = {}
+
+          if (Groups.indexOf('Teachers') === -1) {
+            where.Users_some = {
+              id: currentUser.id,
+            }
+          }
+
+          return ctx.db.query.schools({
+            ...other,
+            where: {
+              ...baseWhere,
+              ...where,
+            },
+          }, info)
+        },
         schoolsConnection: (source, args, ctx, info) => {
           return ctx.db.query.schoolsConnection(args, info)
         },
@@ -173,12 +179,22 @@ export default class SchoolModule extends PrismaModule {
           return ctx.db.mutation.deleteSchool(args, info)
         },
       },
-      Subscription: {
-        ...Subscription,
-        school: {
-          subscribe: async (parent, args, ctx, info) => {
-            return ctx.db.subscription.school({}, info)
-          },
+      // Subscription: {
+      //   ...Subscription,
+      //   school: {
+      //     subscribe: async (parent, args, ctx, info) => {
+      //       return ctx.db.subscription.school({}, info)
+      //     },
+      //   },
+      // },
+      School: {
+        test: (source, args, ctx, info) => {
+          
+          return "Sdfdsfsdfsdf test";
+        },
+        test2: (source, args, ctx, info) => {
+          
+          return "Sdfdsfsdfsdf test 2";
         },
       },
       // SchoolResponse: {

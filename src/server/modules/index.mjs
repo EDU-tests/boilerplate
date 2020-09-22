@@ -18,13 +18,13 @@ import UserModule from "./user";
 //   Modules as UploadModules,
 // } from "@prisma-cms/upload-module";
 // import RouterModule from "@prisma-cms/router-module";
-// import SocietyModule, {
-//   Modules as SocietyModules,
-// } from "@prisma-cms/society-module";
+import SocietyModule, {
+  Modules as SocietyModules,
+} from "@prisma-cms/society-module";
 import EthereumModule, {
   Modules as EthereumModules,
 } from "@prisma-cms/ethereum-module";
-// import WebrtcModule from "@prisma-cms/webrtc-module";
+import WebrtcModule from "@prisma-cms/webrtc-module";
 import MarketplaceModule from "@prisma-cms/marketplace-module";
 // import CooperationModule from "@prisma-cms/cooperation-module";
 import CooperationModule from "./cooperation";
@@ -53,9 +53,9 @@ class CoreModule extends PrismaModule {
       // LogModule,
       // MailModule,
       // UploadModule,
-      // SocietyModule,
+      SocietyModule,
       EthereumModule,
-      // WebrtcModule,
+      WebrtcModule,
       // // UserModule,
       // RouterModule,
       MarketplaceModule,
@@ -63,7 +63,7 @@ class CoreModule extends PrismaModule {
     ]
       .concat(
         EthereumModules,
-        // SocietyModules,
+        SocietyModules,
         // UploadModules,
       )
       .concat([
@@ -411,7 +411,7 @@ class CoreModule extends PrismaModule {
 
     // console.log('AllowedMutations', AllowedMutations);
 
-    return {
+    const rs = {
       ...other,
       Query: {
         ...Query,
@@ -451,34 +451,43 @@ class CoreModule extends PrismaModule {
 
       User: {
         ...User,
-        // schoolRoles: async (source, args, ctx, info) => {
+        schoolRoles: async (source, args, ctx, info) => {
 
-        //   const {
-        //     id,
-        //   } = source
+          // console.log('source', source);
+          console.log('source', JSON.stringify(source, true, 2));
 
-        //   const {
-        //     // currentUser,
-        //     db,
-        //   } = ctx
+          console.log('args', JSON.stringify(args, true, 2));
 
-        //   const Groups = await db.query.userGroups({
-        //     where: {
-        //       Users_some: {
-        //         id,
-        //       }
-        //     }
-        //   });
 
-        //   // console.log('Groups', Groups);
+          const {
+            id,
+          } = source
 
-        //   // console.log('Groups.map(n => n.name)', Groups.map(n => n.name));
+          const {
+            // currentUser,
+            db,
+          } = ctx
 
-        //   return Groups.map(n => n.name);
-        // },
+          const Groups = await db.query.userGroups({
+            where: {
+              Users_some: {
+                id,
+              }
+            }
+          });
+
+          // console.log('Groups', Groups);
+
+          // console.log('Groups.map(n => n.name)', Groups.map(n => n.name));
+
+          return Groups.map(n => n.name);
+        },
       },
     };
 
+    // console.log('resolvers', rs);
+
+    return rs;
   }
 
 
