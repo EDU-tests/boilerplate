@@ -1,0 +1,9 @@
+
+# Школа
+type School {
+  id: ID! @id
+  name: String @unique
+
+  # Пользователи
+  Users: [User!]!
+}

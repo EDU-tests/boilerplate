@@ -1,0 +1,9 @@
+
+enum SchoolRoles {
+  Teachers
+  Students
+}
+
+# type User {
+#   schoolRoles: [SchoolRoles!]!
+# }

@@ -1,7 +1,0 @@
-type User {
-  PrismaProjects: [Project!]! @relation(name: "PrismaProjectUsers")
-}
-
-type Project {
-  PrismaUsers: [User!]! @relation(name: "PrismaProjectUsers")
-}

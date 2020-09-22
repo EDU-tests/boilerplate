@@ -9,26 +9,27 @@ import MergeSchema from 'merge-graphql-schemas';
 import PrismaModule from "@prisma-cms/prisma-module";
 
 
-import LogModule from "@prisma-cms/log-module";
+// import LogModule from "@prisma-cms/log-module";
 // import UserModule from "@prisma-cms/user-module";
 import UserModule from "./user";
-import ResourceModule from "./resource";
-import MailModule from "@prisma-cms/mail-module";
-import UploadModule, {
-  Modules as UploadModules,
-} from "@prisma-cms/upload-module";
-import RouterModule from "@prisma-cms/router-module";
-import SocietyModule, {
-  Modules as SocietyModules,
-} from "@prisma-cms/society-module";
+// import ResourceModule from "./resource";
+// import MailModule from "@prisma-cms/mail-module";
+// import UploadModule, {
+//   Modules as UploadModules,
+// } from "@prisma-cms/upload-module";
+// import RouterModule from "@prisma-cms/router-module";
+// import SocietyModule, {
+//   Modules as SocietyModules,
+// } from "@prisma-cms/society-module";
 import EthereumModule, {
   Modules as EthereumModules,
 } from "@prisma-cms/ethereum-module";
-import WebrtcModule from "@prisma-cms/webrtc-module";
+// import WebrtcModule from "@prisma-cms/webrtc-module";
 import MarketplaceModule from "@prisma-cms/marketplace-module";
 // import CooperationModule from "@prisma-cms/cooperation-module";
 import CooperationModule from "./cooperation";
 
+import SchoolModule from './edu/School';
 
 import { parse, print } from "graphql";
 import path from 'path';
@@ -49,24 +50,27 @@ class CoreModule extends PrismaModule {
 
     this.mergeModules([
       CooperationModule,
-      LogModule,
-      MailModule,
-      UploadModule,
-      SocietyModule,
+      // LogModule,
+      // MailModule,
+      // UploadModule,
+      // SocietyModule,
       EthereumModule,
-      WebrtcModule,
-      // UserModule,
-      RouterModule,
+      // WebrtcModule,
+      // // UserModule,
+      // RouterModule,
       MarketplaceModule,
-      ResourceModule,
+      // ResourceModule,
     ]
       .concat(
         EthereumModules,
-        SocietyModules,
-        UploadModules,
+        // SocietyModules,
+        // UploadModules,
       )
       .concat([
         UserModule,
+      ])
+      .concat([
+        SchoolModule,
       ])
     );
 
@@ -103,6 +107,8 @@ class CoreModule extends PrismaModule {
       baseSchema = fs.readFileSync(schemaFile, "utf-8");
 
       baseSchema = this.cleanupApiSchema(baseSchema, [
+        // "Position",
+
         // // Cooperation
         // "ProjectCreateInput",
         // "ProjectUpdateInput",
@@ -159,30 +165,30 @@ class CoreModule extends PrismaModule {
         // "FileCreateOneWithoutImageResourceInput",
         // "FileUpdateOneWithoutImageResourceInput",
 
-        "ChatRoomCreateInput",
-        "ChatRoomUpdateInput",
-        "UserCreateManyWithoutRoomsInput",
-        "UserUpdateManyWithoutRoomsInput",
-        // "ChatRoomInvitationUpdateManyWithoutRoomInput",
+        // "ChatRoomCreateInput",
+        // "ChatRoomUpdateInput",
+        // "UserCreateManyWithoutRoomsInput",
+        // "UserUpdateManyWithoutRoomsInput",
+        // // "ChatRoomInvitationUpdateManyWithoutRoomInput",
 
-        "ChatMessageCreateInput",
-        "ChatMessageUpdateInput",
-        "ChatRoomCreateOneWithoutMessagesInput",
+        // "ChatMessageCreateInput",
+        // "ChatMessageUpdateInput",
+        // "ChatRoomCreateOneWithoutMessagesInput",
 
-        "ChatMessageReadedCreateInput",
-        "ChatMessageCreateOneWithoutReadedByInput",
+        // "ChatMessageReadedCreateInput",
+        // "ChatMessageCreateOneWithoutReadedByInput",
 
-        // "CallRequestCreateInput",
-        "CallRequestUpdateDataInput",
-        "ChatRoomCreateOneWithoutCallRequestsInput",
-        "ChatRoomUpdateOneWithoutCallRequestsInput",
+        // // "CallRequestCreateInput",
+        // "CallRequestUpdateDataInput",
+        // "ChatRoomCreateOneWithoutCallRequestsInput",
+        // "ChatRoomUpdateOneWithoutCallRequestsInput",
 
-        "EthContractSourceCreateInput",
-        "EthContractSourceUpdateInput",
-        "EthTransactionCreateInput",
-        "EthAccountCreateInput",
-        "EthAccountUpdateInput",
-        "EthTransactionSubscriptionPayload",
+        // "EthContractSourceCreateInput",
+        // "EthContractSourceUpdateInput",
+        // "EthTransactionCreateInput",
+        // "EthAccountCreateInput",
+        // "EthAccountUpdateInput",
+        // "EthTransactionSubscriptionPayload",
       ]);
 
     }
@@ -193,8 +199,8 @@ class CoreModule extends PrismaModule {
 
     let apiSchema = super.getApiSchema(types.concat(baseSchema), [
 
-      "UserCreateInput",
-      "UserUpdateInput",
+      // "UserCreateInput",
+      // "UserUpdateInput",
 
     ]);
 
@@ -286,10 +292,110 @@ class CoreModule extends PrismaModule {
         logsConnection,
 
         resource,
+        resources,
+        resourcesConnection,
+
+        resourceTag,
+        resourceTags,
+        resourceTagsConnection,
+
+        vote,
+        votes,
+        votesConnection,
+
+        tag,
+        tags,
+        tagsConnection,
+
+        task,
+        tasks,
+        tasksConnection,
+
+        taskReaction,
+        taskReactions,
+        taskReactionsConnection,
+
+        timer,
+        timers,
+        timersConnection,
+
+        notice,
+        notices,
+        noticesConnection,
+
+        service,
+        services,
+        servicesConnection,
+
+        team,
+        teams,
+        teamsConnection,
+
+        teamMember,
+        teamMembers,
+        teamMembersConnection,
+
+        gallery,
+        gallerys,
+        gallerysConnection,
+
+        project,
+        projects,
+        projectsConnection,
+
+        projectMember,
+        projectMembers,
+        projectMembersConnection,
+
+        position,
+        positions,
+        positionsConnection,
+
+        ethAccount,
+        ethAccounts,
+        ethAccountsConnection,
+
+        ethTransaction,
+        ethTransactions,
+        ethTransactionsConnection,
+
+        ethContract,
+        ethContracts,
+        ethContractsConnection,
+
+        ethContractSource,
+        ethContractSources,
+        ethContractSourcesConnection,
+
+        ethPersonalAccount,
+        ethPersonalAccounts,
+        ethPersonalAccountsConnection,
+
+        ethBlock,
+        ethBlocks,
+        ethBlocksConnection,
+
+
+        ethSyncState,
+        ethNet,
+        ethCoinbase,
 
         ...Query
       },
-      Mutation,
+      Mutation: {
+        createSmsMessageProcessor,
+        createSmsProviderProcessor,
+        updateSmsProviderProcessor,
+        // signin,
+        // createUserProcessor,
+        resetPasswordProcessor,
+        // signup,
+        ethSigninOrSignup,
+        ethConnectAuthAccount,
+        // updateUserProcessor,
+        ...Mutation
+      },
+      User,
       ...other
     } = resolvers;
 
@@ -299,45 +405,77 @@ class CoreModule extends PrismaModule {
 
 
     let AllowedMutations = {
+
       ...Mutation,
     };
+
+    // console.log('AllowedMutations', AllowedMutations);
 
     return {
       ...other,
       Query: {
         ...Query,
         apiSchema: this.renderApiSchema,
-        resource: async (source, args, ctx, info) => {
+        // resource: async (source, args, ctx, info) => {
 
-          const {
-            where,
-          } = args;
+        //   const {
+        //     where,
+        //   } = args;
 
-          let {
-            uri,
-          } = where || {};
+        //   let {
+        //     uri,
+        //   } = where || {};
 
-          /**
-           * Если указан ури, но не начинается со слеша, то добавляем слеш
-           */
-          if (uri && !uri.startsWith("/")) {
-            where.uri = `/${uri}`;
+        //   /**
+        //    * Если указан ури, но не начинается со слеша, то добавляем слеш
+        //    */
+        //   if (uri && !uri.startsWith("/")) {
+        //     where.uri = `/${uri}`;
 
-            Object.assign(args, where);
-          }
+        //     Object.assign(args, where);
+        //   }
 
-          return resource(source, args, ctx, info);
-        },
+        //   return resource(source, args, ctx, info);
+        // },
       },
       Mutation: AllowedMutations,
-      Log: {
-        stack: () => null,
-      },
-      Letter: {
-        id: () => null,
-        email: () => null,
-        subject: () => null,
-        message: () => null,
+      // Log: {
+      //   stack: () => null,
+      // },
+      // Letter: {
+      //   id: () => null,
+      //   email: () => null,
+      //   subject: () => null,
+      //   message: () => null,
+      // },
+
+      User: {
+        ...User,
+        // schoolRoles: async (source, args, ctx, info) => {
+
+        //   const {
+        //     id,
+        //   } = source
+
+        //   const {
+        //     // currentUser,
+        //     db,
+        //   } = ctx
+
+        //   const Groups = await db.query.userGroups({
+        //     where: {
+        //       Users_some: {
+        //         id,
+        //       }
+        //     }
+        //   });
+
+        //   // console.log('Groups', Groups);
+
+        //   // console.log('Groups.map(n => n.name)', Groups.map(n => n.name));
+
+        //   return Groups.map(n => n.name);
+        // },
       },
     };
 

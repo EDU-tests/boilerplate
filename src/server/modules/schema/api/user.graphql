@@ -21,7 +21,7 @@ input UserUpdateInput {
   email: String
   ethWalletPK: String
   ethWalletPKSendEmail: Boolean
-  NotificationTypes: NotificationTypeUpdateManyWithoutUsersInput
+  # NotificationTypes: NotificationTypeUpdateManyWithoutUsersInput
   Groups: UserGroupUpdateManyWithoutUsersInput
   # CreatedUsers: UserUpdateManyWithoutCreatedByInput
   # CreatedBy: UserUpdateOneWithoutCreatedUsersInput
