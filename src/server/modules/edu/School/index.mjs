@@ -197,6 +197,16 @@ export default class SchoolModule extends PrismaModule {
           return "Sdfdsfsdfsdf test 2";
         },
       },
+      School: {
+        test: (source, args, ctx, info) => {
+          
+          return "Sdfdsfsdfsdf test";
+        },
+        test2: (source, args, ctx, info) => {
+          
+          return "Sdfdsfsdfsdf test 2";
+        },
+      },
       // SchoolResponse: {
       //   data: (source, args, ctx, info) => {
       //     const {
