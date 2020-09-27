@@ -28,9 +28,10 @@ export default shield(
     // Query: {
     //   users: rules.isSudo,
     // },
-    // Mutation: {
-    //   updateUserProcessor: rules.isSudo,
-    // },
+    Mutation: {
+      // updateUserProcessor: rules.isSudo,
+      exportTemplates: rules.isSudo,
+    },
   },
   {
     fallbackError: (error, parent, args, context, info) => {

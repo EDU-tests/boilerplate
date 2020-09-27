@@ -1,5 +1,4 @@
 
 type User {
-  sudo: Boolean @default(value: false)
   School: School
 }

@@ -26,6 +26,8 @@ import EthereumModule, {
 } from "@prisma-cms/ethereum-module";
 import WebrtcModule from "@prisma-cms/webrtc-module";
 import MarketplaceModule from "@prisma-cms/marketplace-module";
+
+import ImportExportModule from './ImportExport';
 // import CooperationModule from "@prisma-cms/cooperation-module";
 import CooperationModule from "./cooperation";
 
@@ -49,6 +51,7 @@ class CoreModule extends PrismaModule {
     super(options);
 
     this.mergeModules([
+      ImportExportModule,
       CooperationModule,
       // LogModule,
       // MailModule,
